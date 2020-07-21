@@ -16,42 +16,47 @@ connection.connect(() => {
     console.log('Connection established...')
 })
 
+//GET
+routes.get('/posts', ((req, res) => {
+    try {
+        const getAllPosts = 'SELECT * FROM blog.posts'
 
-
-routes.get('/', ((req, res) => {
-    const getAllSubscribers = 'SELECT * FROM blog.subscribers'
-
-    connection.execute(getAllSubscribers, [], ((err, result) => {
-        if (err) {
-            res.status(404).send({
-                msg: err
-            })
-        } else {
+        connection.execute(getAllPosts, [], ((err, result) => {
             res.json(result.rows)
-        }
-    }))
+        }))
+    } catch (error) {
+        res.json({
+            error
+        })
+    }
 }))
 
-// routes.get('/posts', ((req, res) => {
+routes.get('/subscribers', ((req, res) => {
+    try {
+        const getAllSubscribers = 'SELECT * FROM blog.subscribers'
 
-//     const data = {
-//         "error": 1,
-//         "Posts": ""
-//     }
+        connection.execute(getAllSubscribers, [], ((err, result) => {
+            res.json(result.rows)
+        }))
+    } catch (error) {
+        res.json({
+            error
+        })
+    }
+}))
 
-//     const select = 'SELECT * from posts'
+// routes.get('/', ((req, res) => {
+//     const getAllSubscribers = 'SELECT * FROM blog.posts'
 
-//     connection.execute(select, ((err, rows) => {
-//         if (rows.length != 0) {
-//             data["error"] = 0;
-//             data["Books"] = rows;
-//             res.json(data);
+//     connection.execute(getAllSubscribers, [], ((err, result) => {
+//         if (err) {
+//             res.status(404).send({
+//                 msg: err
+//             })
 //         } else {
-//             data["Books"] = 'No books Found..';
-//             res.json(data);
+//             res.json(result.rows)
 //         }
 //     }))
 // }))
-
 
 module.exports = routes
