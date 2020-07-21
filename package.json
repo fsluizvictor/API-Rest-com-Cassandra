@@ -13,6 +13,7 @@
     "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "cassandra-driver": "^4.5.2",
     "express": "^4.17.1"
   }
 }
