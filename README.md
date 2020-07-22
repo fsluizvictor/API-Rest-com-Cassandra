@@ -3,13 +3,13 @@ These project is a REST API make using NodeJS and Cassandra, a database no-sql. 
 aplication, was make two CRUD's, Users and Posts, has up the objective of show the integration of NodeJS and database Cassandra.
 
 
-## Tecnologias:
+## Technologies:
 * NODEJS
 * Express
 * Nodemon
 * Cassandra-driver
 
-## Banco de Dados:
+## Database:
 * Cassandra (Database NOSQL)
 
 ## Author
