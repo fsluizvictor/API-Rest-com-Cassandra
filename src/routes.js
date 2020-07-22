@@ -89,7 +89,41 @@ routes.post('/users', ((req, res) => {
     }
 }))
 
-routes.post('/posts', () => { })
+routes.post('/posts', ((req, res) => {
+    try {
+
+        const {
+            tag,
+            name,
+            author,
+            description,
+            likes
+        } = req.body
+
+        const post = {
+            tag,
+            name,
+            author,
+            description,
+            likes
+        }
+
+        const query = 'INSERT INTO blog.posts (tag,name,author,description,likes) VALUES(?,?,?,?,?)'
+
+        console.log('kcjbdvlkjsd')
+
+        connection.execute(query, [tag, name, author, description, likes], ((err, result) => {
+            res.json({
+                post
+            })
+        }))
+
+    } catch (error) {
+        res.json({
+            error
+        })
+    }
+}))
 
 //PUT
 routes.put('/users/:id', ((req, res) => {
