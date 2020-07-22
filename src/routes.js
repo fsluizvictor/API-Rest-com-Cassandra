@@ -95,25 +95,25 @@ routes.post('/posts', ((req, res) => {
         const id = uuidv4()
 
         const {
-            tag,
-            name,
             author,
             description,
-            likes
+            likes,
+            name,
+            tag
         } = req.body
 
         const post = {
             id,
-            tag,
-            name,
             author,
             description,
-            likes
+            likes,
+            name,
+            tag
         }
 
-        const query = 'INSERT INTO blog.posts (id,tag,name,author,description,likes) VALUES(?,?,?,?,?,?)'
+        const query = 'INSERT INTO blog.posts (id,author,description,likes,name,tag) VALUES(?,?,?,?,?,?)'
 
-        connection.execute(query, [id, tag, name, author, description, likes], ((err, result) => {
+        connection.execute(query, [id, author, description, likes, name, tag], ((err, result) => {
             res.json({
                 post
             })
