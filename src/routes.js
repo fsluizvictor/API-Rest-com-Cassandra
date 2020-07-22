@@ -115,7 +115,7 @@ routes.put('/users/:id', ((req, res) => {
             password,
         }
 
-        const query = 'UPDATE blog.users SET email=?, first_name=?, last_name=?, login=?, password=? WHERE id=?'
+        const query = 'UPDATE users SET email=?, first_name=?, last_name=?, login=?, password=? WHERE id=?'
 
         connection.execute(query, [email, first_name, last_name, login, password, id], ((err, result) => {
             res.json({
@@ -151,8 +151,5 @@ routes.delete('/users/:id', ((req, res) => {
         })
     }
 }))
-
-
-
 
 module.exports = routes
