@@ -87,6 +87,48 @@ routes.post('/users', ((req, res) => {
     }
 }))
 
+routes.post('/posts', () => { })
+
+//PUT
+routes.put('/users/:id', ((req, res) => {
+
+    try {
+
+        const id = req.params
+
+        const {
+            email,
+            first_name,
+            last_name,
+            login,
+            password,
+        } = req.body
+
+        const user = {
+            id,
+            email,
+            first_name,
+            last_name,
+            login,
+            password,
+        }
+
+        const query = 'UPDATE blog.users SET email=?, first_name=?, last_name=?, login=?, password=? WHERE id=?'
+
+        connection.execute(query, [email, first_name, last_name, login, password], ((err, result) => {
+            res.json({
+            //user: result.rows
+            })
+        }))
+
+    } catch (error) {
+        res.json({
+            error
+        })
+    }
+
+}))
+
 
 
 module.exports = routes
