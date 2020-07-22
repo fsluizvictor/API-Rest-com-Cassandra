@@ -11,3 +11,7 @@ aplication, was make two CRUD's, Users and Posts, has up the objective of show t
 
 ## Banco de Dados:
 * Cassandra (Database NOSQL)
+
+## Author
+* Luiz Victor Ferreira Santos
+* https://www.linkedin.com/in/luiz-victor-ferreira-santos-dev/
