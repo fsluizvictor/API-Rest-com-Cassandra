@@ -92,6 +92,8 @@ routes.post('/users', ((req, res) => {
 routes.post('/posts', ((req, res) => {
     try {
 
+        const id = uuidv4()
+
         const {
             tag,
             name,
@@ -101,6 +103,7 @@ routes.post('/posts', ((req, res) => {
         } = req.body
 
         const post = {
+            id,
             tag,
             name,
             author,
@@ -108,11 +111,9 @@ routes.post('/posts', ((req, res) => {
             likes
         }
 
-        const query = 'INSERT INTO blog.posts (tag,name,author,description,likes) VALUES(?,?,?,?,?)'
+        const query = 'INSERT INTO blog.posts (id,tag,name,author,description,likes) VALUES(?,?,?,?,?,?)'
 
-        console.log('kcjbdvlkjsd')
-
-        connection.execute(query, [tag, name, author, description, likes], ((err, result) => {
+        connection.execute(query, [id, tag, name, author, description, likes], ((err, result) => {
             res.json({
                 post
             })
@@ -162,6 +163,44 @@ routes.put('/users/:id', ((req, res) => {
             error
         })
     }
+}))
+
+routes.put('/posts/:id', ((req, res) => {
+
+    try {
+
+        const id = req.params
+
+        const {
+            tag,
+            name,
+            author,
+            description,
+            likes
+        } = req.body
+
+        const post = {
+            id,
+            tag,
+            name,
+            author,
+            description,
+            likes
+        }
+
+        const query = 'UPDATE users SET tag=?, name=?, author=?, description=?, likes=?  WHERE id=?'
+
+        connection.execute(query, [tag, name, author, description, likes], ((err, result) => {
+            res.json({
+                user
+            })
+        }))
+
+    } catch (error) {
+        res.json({
+            error
+        })
+    }
 
 }))
 
@@ -186,4 +225,27 @@ routes.delete('/users/:id', ((req, res) => {
     }
 }))
 
+routes.delete('/posts/:id', ((req, res) => {
+    try {
+
+        const id = req.params
+
+        const query = 'DELETE FROM blog.posts WHERE id = ?'
+
+        connection.execute(query, id, ((err, result) => {
+            res.json({
+                msg: 'success'
+            })
+        }))
+
+    } catch (error) {
+        res.json({
+            error
+        })
+    }
+}))
+
+
+
 module.exports = routes
+
