@@ -1,0 +1,47 @@
+ CREATE KEYSPACE blog
+ WITH 
+ REPLICATION = {
+   'class': 'SimpleStrategy',
+   'replication_factor' : 1
+ };
+
+ -- cqlsh
+
+    cqlsh> USE blog;
+ 
+ CREATE TABLE posts (
+     id uuid,
+     users_id uuid,
+     tag varchar,
+     name varchar,
+     author varchar,
+     description text,
+     likes int,
+    PRIMARY KEY (id)   
+);
+
+CREATE TABLE users (
+    id uuid,
+    email text,
+    first_name text,
+    last_name text,
+    login text,
+    password text,
+    PRIMARY KEY (id, email)
+)
+
+-------------------------------------------------------------------------------------------------
+Data:
+
+insert into blog.posts (id,author,description,likes,name,tag,users_id) 
+values(ddf0e87b-b39c-4735-af02-bd136ac30f6d,'Luiz','Banco de Dados',22,'Apache-Cassandra'
+,'db',64850442-d641-429e-8dbc-b45a9c66b2c8);
+
+insert into blog.posts (id,author,description,likes,name,tag,users_id) 
+values(35f7978c-3661-4a5b-b17e-3ca41dc7d37a,'Luiz','Banco de Dados Relacional',522,'Postgress'
+,'db',0e28528a-1aa3-41b4-96d3-09a05ade8f2c);
+
+insert into blog.posts (id,author,description,likes,name,tag,users_id) 
+values(2ea1e387-0465-4f73-92aa-807c92cb4263,'Luiz','Banco de Dados Colunar',58,'Apache-Cassandra'
+,'db',64850442-d641-429e-8dbc-b45a9c66b2c8);
+

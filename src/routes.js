@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid')
 const express = require('express')
 const cassandra = require('cassandra-driver')
-const { json } = require('express')
+//const { json } = require('express')
 const routes = express.Router()
 
 //Configuração do Cassandra
@@ -99,7 +99,8 @@ routes.post('/posts', ((req, res) => {
             description,
             likes,
             name,
-            tag
+            tag,
+            users_id
         } = req.body
 
         const post = {
@@ -108,12 +109,13 @@ routes.post('/posts', ((req, res) => {
             description,
             likes,
             name,
-            tag
+            tag,
+            users_id
         }
 
-        const query = 'INSERT INTO blog.posts (id,author,description,likes,name,tag) VALUES(?,?,?,?,?,?)'
+        const query = 'INSERT INTO blog.posts (id,users_id,tag,name,author,description,likes) VALUES(?,?,?,?,?,?,?)'
 
-        connection.execute(query, [id, author, description, likes, name, tag], ((err, result) => {
+        connection.execute(query, [id, users_id, tag, name, author, description, likes], ((err, result) => {
             res.json({
                 post
             })
@@ -192,7 +194,7 @@ routes.put('/posts/:id', ((req, res) => {
 
         connection.execute(query, [tag, name, author, description, likes], ((err, result) => {
             res.json({
-                user
+                post
             })
         }))
 
@@ -244,8 +246,6 @@ routes.delete('/posts/:id', ((req, res) => {
         })
     }
 }))
-
-
 
 module.exports = routes
 
