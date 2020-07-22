@@ -27,6 +27,7 @@ routes.get('/posts', ((req, res) => {
         connection.execute(getAllPosts, [], ((err, result) => {
             res.json(result.rows)
         }))
+
     } catch (error) {
         res.json({
             error
@@ -42,6 +43,7 @@ routes.get('/users', ((req, res) => {
         connection.execute(getAllSubscribers, [], ((err, result) => {
             res.json(result.rows)
         }))
+
     } catch (error) {
         res.json({
             error
@@ -115,9 +117,9 @@ routes.put('/users/:id', ((req, res) => {
 
         const query = 'UPDATE blog.users SET email=?, first_name=?, last_name=?, login=?, password=? WHERE id=?'
 
-        connection.execute(query, [email, first_name, last_name, login, password], ((err, result) => {
+        connection.execute(query, [email, first_name, last_name, login, password, id], ((err, result) => {
             res.json({
-            //user: result.rows
+                user
             })
         }))
 
@@ -128,6 +130,28 @@ routes.put('/users/:id', ((req, res) => {
     }
 
 }))
+
+//DELETE
+routes.delete('/users/:id', ((req, res) => {
+    try {
+
+        const id = req.params
+
+        const query = 'DELETE FROM blog.users WHERE id = ?'
+
+        connection.execute(query, id, ((err, result) => {
+            res.json({
+                msg: 'success'
+            })
+        }))
+
+    } catch (error) {
+        res.json({
+            error
+        })
+    }
+}))
+
 
 
 
